@@ -1,17 +1,76 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Home
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="grid-items"  (click)="scanbarcode()">
+        <div class="grid-content">
+          <i class="icon la la-qrcode la-4x"></i>
+          <span>Scan Barcode</span>
+        </div>
+      </ion-col>
+      <ion-col class="grid-items" (click)="listAllJobs()">
+        <div class="grid-content">
+          <i class="icon la la-pencil-square la-4x"></i>
+          <span>Jobs List</span>
+        </div>
+      </ion-col>
+      <!--<ion-col class="grid-items"  (click)="signature()">-->
+        <!--<div class="grid-content">-->
+          <!--<i class="icon la la-qrcode la-4x"></i>-->
+          <!--<span>Signature</span>-->
+        <!--</div>-->
+      <!--</ion-col>-->
+    </ion-row>
+    <ion-row>
+
+      <!--<ion-col class="grid-items" (click)="notifications()">-->
+        <!--<div class="grid-content">-->
+          <!--<i class="icon la la-bullhorn  la-4x"></i>-->
+          <!--<span>Notifications</span>-->
+        <!--</div>-->
+      <!--</ion-col>-->
+     </ion-row>
+  </ion-grid>
+
+  <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
+
+  <ion-item class="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob.Id)">
+    <ion-avatar item-start>
+      <!--<span item-start>5:00pm</span>-->
+      <div class="circle-icon"><i class="la la-map-marker"></i></div>
+    </ion-avatar>
+    <h2>{{outstndJob.TicketNo}} - {{outstndJob.Description}} </h2>
+    <h3><strong>DELIVER:</strong>{{outstndJob.Daddress}}</h3>
+    <h3><strong>PICKUP:</strong>{{outstndJob.Paddress}}</h3>
+    <p>{{outstndJob.Instructions}}</p>
+<!--{{outstndJob.JobDate | date : 'shortTime'}}-->
+  </ion-item>
+  <!--<ion-item-group>-->
+    <!--<ion-item-divider color="light">   OUTSTANDING JOBS NOTICE</ion-item-divider>-->
+    <!--<ion-item *ngFor="let outstndJob of courierJobs">{{outstndJob.TicketNo}}</ion-item>-->
+  <!--</ion-item-group>-->
+
+  <!--<ion-item-group>-->
+    <!--<ion-item-divider color="light">PENDING JOBS</ion-item-divider>-->
+    <!--<ion-item>Angola</ion-item>-->
+    <!--<ion-item>Argentina</ion-item>-->
+    <!--<button ion-button  full>More Jobs</button>-->
+  <!--</ion-item-group>-->
 </ion-content>
+
