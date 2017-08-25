@@ -27,7 +27,7 @@
       <ion-col class="grid-items" (click)="listAllJobs()">
         <div class="grid-content">
           <i class="icon la la-pencil-square la-4x"></i>
-          <span>Jobs List</span>
+          <span>Write Note</span>
         </div>
       </ion-col>
       <!--<ion-col class="grid-items"  (click)="signature()">-->
@@ -50,7 +50,7 @@
 
   <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
 
-  <ion-item class="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob.Id)">
+  <ion-item class="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)">
     <ion-avatar item-start>
       <!--<span item-start>5:00pm</span>-->
       <div class="circle-icon"><i class="la la-map-marker"></i></div>

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page7">
+  <div>
+    <img src="assets/img/Icon-192.png" style="display:block;height:auto;margin-left:auto;margin-right:auto;" />
+  </div>
+  <form [formGroup]="authForm" (ngSubmit)="authenticate()" id="login-form1">
+    <ion-list id="login-list1">
+      <ion-item id="login-input1">
+        <ion-label>
+          ID
+        </ion-label>
+        <ion-input formControlName="jobId" type="number" placeholder="Id Number"></ion-input>
+      </ion-item>
+      <ion-item id="login-input2">
+        <ion-label>
+          Password
+        </ion-label>
+        <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="height:40px;" id="login-spacer3"></div>
+    <ion-item id="login-toggle1">
+      <ion-label>
+        Location
+      </ion-label>
+      <ion-toggle color="positive" checked="false"></ion-toggle>
+    </ion-item>
+    <button id="login-button1" ion-button color="positive" block type="submit">
+      Log in
+    </button>
+    <button id="login-button5" ion-button color="light" block>
+      Forget Password?
+    </button>
+  </form>
+</ion-content>

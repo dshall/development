@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MenuController, NavController, ViewController} from 'ionic-angular';
+import { MenuController, NavController, ViewController, NavParams } from 'ionic-angular';
 import { List } from 'ionic-angular';
 
 import { SignPackagePage} from '../sign-package/sign-package';
@@ -14,13 +14,21 @@ export class HomePage implements OnInit{
 
   items: string[];
   courierJobs: any;
+  labels:any;
+  courierId:any;
 
-
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService) {
-
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService 
+    , private navParams: NavParams) {
+     this.courierId = this.navParams.data;
+     console.log('Courier Job Selected By  ID:' + this.courierId);
   }
 
-
+    // labels = [
+    //   {id:1, jobs: 'Courier Jobs'},
+    //   {id:2, jobdetails: 'Job Details'},
+    //   {id:3, settings: 'Settings'},
+    //   {id:4, returns: 'Returns'},
+    // ];
 
   scanbarcode(){
 
@@ -33,7 +41,7 @@ export class HomePage implements OnInit{
   }
 
   listCourierJobs(){
-      this.courierService.listCourierJobs('3608')
+      this.courierService.listCourierJobs(this.courierId)
         .subscribe(
           jobs => {this.courierJobs = jobs;
            console.log("list All Courier Jobs By ID:" + this.courierJobs.TicketNo); },
@@ -89,11 +97,12 @@ ionViewDidLoad() {
   // stopSliding() {
   //   this.list.sliding(false);
   // }
-  jobDetails(jobId){
-    this.navCtrl.push(JobDetailsPage, jobId);
+  jobDetails($event, courierJob){
+    this.navCtrl.push(JobDetailsPage, courierJob);
   }
 
   ngOnInit() {
+
     // this.listCourierJobs();
     console.log("Execute When the application first load");
   }

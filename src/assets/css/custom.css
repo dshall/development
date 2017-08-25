@@ -1,0 +1,53 @@
+.grid-items{
+  width: 150px;
+  height: 150px;
+  background: #e0e0e0;
+  text-align: center;
+  display: block;
+  margin: 1% 1.0% !important;
+  /*color: #ffffff;*/
+}
+
+.grid-items .grid-content {
+  padding: 32px 0 0 0;
+  color: #488AFF;
+}
+.grid-items .icon {
+  margin: 0 auto;
+  display: block;
+}
+
+.circle-icon {
+  display: block;
+  margin-left:auto;
+  margin-right:auto;
+  text-align: center;
+}
+.circle-icon {
+  width: 36px;
+  height:36px;
+  border-radius: 100%;
+  background: #e0e0e0;
+  color: #488AFF;
+}
+
+.job-list-item h2 {
+  text-transform: capitalize;
+  font-weight: 400;
+  color: #488AFF;
+}
+.job-list-item h3 {
+  font-size: 1.23rem !important;
+}
+.circle-icon i {
+  text-transform: capitalize;
+  padding: 10px 0 0 0;
+}
+
+ion-avatar span {
+  display: block;
+  margin-left:auto !important;;
+  margin-right:auto !important;;
+  text-align: center;
+  font-size: 1.4rem;
+}
