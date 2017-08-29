@@ -34,7 +34,7 @@
   background: #f4f4f4;
 }
 #job-list-item {
-  border-bottom: 2px solid #488aff;
+  /*border-bottom: 2px solid #488aff;*/
 }
 #job-list-item h2 {
   text-transform: capitalize;
@@ -96,7 +96,7 @@ ion-card-content p{
 }
 .ticket-no {
   padding: 5px 10px 5px 10px;
-  
+
 }
 
 .ticket-title, .ticket-desc{

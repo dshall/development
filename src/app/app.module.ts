@@ -14,7 +14,7 @@ import { DeluxeDirectPage } from '../pages/deluxe-direct/deluxe-direct';
 import { SignPackagePage } from '../pages/sign-package/sign-package';
 import { NotesPage } from '../pages/notes/notes';
 import { UpdatePackagePage } from '../pages/update-package/update-package';
-import { ReturnPackagePage } from '../pages/return-package/return-package';
+import { ReturnPackagePage } from '../pages/pod/return-package/return-package';
 import { SettingsPage } from '../pages/settings/settings';
 import {HomePage} from "../pages/home/home";
 
@@ -42,7 +42,8 @@ import {JwtService} from "../pages/shared/services/jwt.service";
     UpdatePackagePage,
     ReturnPackagePage,
     SettingsPage,
-    JobDetailsPage
+    JobDetailsPage,
+    NotesPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +67,8 @@ import {JwtService} from "../pages/shared/services/jwt.service";
     UpdatePackagePage,
     ReturnPackagePage,
     SettingsPage,
-    JobDetailsPage
+    JobDetailsPage,
+    NotesPage
   ],
   providers: [
     StatusBar,

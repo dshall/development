@@ -6,6 +6,10 @@
     <ion-title>
       Home
     </ion-title>
+
+    <ion-buttons end>
+      <button  ion-button small>Select</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -34,7 +38,7 @@
           <span>Scan Barcode</span>
         </div>
       </ion-col>
-      <ion-col class="grid-items" (click)="listAllJobs()">
+      <ion-col class="grid-items" (click)="showNoteModal()">
         <div class="grid-content">
           <i class="icon la la-pencil-square la-4x"></i>
           <span>Write Note</span>
@@ -59,23 +63,43 @@
   </ion-grid>
 
   <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
+<!--<ion-list>-->
+  <!--<ion-item id="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)"-->
+  <!--let="even = even" >-->
+    <!--<ion-checkbox></ion-checkbox>-->
+    <!--<ion-avatar item-start>-->
+      <!--&lt;!&ndash;<span item-start>5:00pm</span>&ndash;&gt;-->
+      <!--<div class="circle-icon"><i class="la la-map-marker"></i></div>-->
+    <!--</ion-avatar>-->
+    <!--<ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>-->
+    <!--<div class="ticket-details">-->
+    <!--<h3 class="ticket-title"><strong>DELIVER:</strong></h3>-->
+    <!--<div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>-->
+    <!--<h3  class="ticket-title"><strong>PICKUP:</strong></h3>-->
+    <!--<div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>-->
+    <!--</div>-->
+ <!--&lt;!&ndash;{{outstndJob.JobDate | date : 'shortTime'}}&ndash;&gt;-->
+  <!--</ion-item>-->
+<!--</ion-list>-->
 
-  <ion-item id="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)"
-  let="even = even" [ngClass]="{even: job-list-item-bgcolor}">
-    <ion-avatar item-start>
+  <ion-list >
+    <ion-item *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)">
+      <ion-label> <ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip></ion-label>
+      <ion-checkbox checked="false" ></ion-checkbox>
+      <ion-avatar item-start>
       <!--<span item-start>5:00pm</span>-->
       <div class="circle-icon"><i class="la la-map-marker"></i></div>
-    </ion-avatar>
-    <ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>
-    <div class="ticket-details">
-    <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
-    <div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>
-    <h3  class="ticket-title"><strong>PICKUP:</strong></h3>
-    <div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>
-    </div>
-
-<!--{{outstndJob.JobDate | date : 'shortTime'}}-->
-  </ion-item>
+      </ion-avatar>
+      <ion-note item-right>
+        <div class="ticket-details">
+        <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
+        <div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>
+        <h3  class="ticket-title"><strong>PICKUP:</strong></h3>
+        <div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>
+        </div>
+      </ion-note>
+    </ion-item>
+  </ion-list>
   <!--<ion-item-group>-->
     <!--<ion-item-divider color="light">   OUTSTANDING JOBS NOTICE</ion-item-divider>-->
     <!--<ion-item *ngFor="let outstndJob of courierJobs">{{outstndJob.TicketNo}}</ion-item>-->

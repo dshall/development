@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SignPackagePage } from '../sign-package/sign-package';
 import { NotesPage } from '../notes/notes';
-import { ReturnPackagePage } from '../return-package/return-package';
+import { ReturnPackagePage } from '../pod/return-package/return-package';
 import { UpdatePackagePage } from '../update-package/update-package';
 
 @Component({

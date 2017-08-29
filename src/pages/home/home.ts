@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgClass } from '@angular/common';
-import { MenuController, NavController, ViewController, NavParams } from 'ionic-angular';
+import { MenuController,  ModalController , NavController, ViewController, NavParams } from 'ionic-angular';
 import { List } from 'ionic-angular';
 
 import { SignPackagePage} from '../sign-package/sign-package';
 import {CourierService} from "../shared/services/courier.service";
 import {JobDetailsPage} from "../jobs/job-details/job-details";
+import {NotesPage} from "../notes/notes";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -18,7 +19,7 @@ export class HomePage implements OnInit{
   labels:any;
   courierId:any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService 
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService
     , private navParams: NavParams) {
      this.courierId = this.navParams.data;
      console.log('Courier Job Selected By  ID:' + this.courierId);
@@ -98,10 +99,16 @@ ionViewDidLoad() {
   // stopSliding() {
   //   this.list.sliding(false);
   // }
+
+
   jobDetails($event, courierJob){
     this.navCtrl.push(JobDetailsPage, courierJob);
   }
-
+  showNoteModal() {
+    let modal = this.modalCtrl.create(NotesPage);
+    modal.present();
+    console.log("Show Modal called~");
+  }
   ngOnInit() {
 
     // this.listCourierJobs();

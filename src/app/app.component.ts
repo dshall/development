@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import {Platform, Nav, NavController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { SignPackagePage } from '../pages/sign-package/sign-package';
-import { ReturnPackagePage } from '../pages/return-package/return-package';
+import { ReturnPackagePage } from '../pages/pod/return-package/return-package';
 import { UpdatePackagePage } from '../pages/update-package/update-package';
 import { SettingsPage } from '../pages/settings/settings';
 
@@ -43,7 +43,10 @@ export class MyApp implements OnInit{
     if (!params) params = {};
     this.navCtrl.setRoot(SettingsPage);
   }
-
+  logout() {
+     // this.navCtrl.setRoot(LoginPage);
+    console.log("logout Called");
+  }
   ngOnInit() {
 
   }
