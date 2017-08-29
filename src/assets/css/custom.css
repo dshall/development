@@ -30,14 +30,28 @@
   background: #e0e0e0;
   color: #488AFF;
 }
-
-.job-list-item h2 {
+.job-list-item-bgcolor {
+  background: #f4f4f4;
+}
+#job-list-item {
+  border-bottom: 2px solid #488aff;
+}
+#job-list-item h2 {
   text-transform: capitalize;
   font-weight: 400;
   color: #488AFF;
 }
-.job-list-item h3 {
+#job-list-item h3 {
   font-size: 1.23rem !important;
+}
+.job-summary-heading {
+  width: 36px;
+  height:36px;
+  border-radius: 100%;
+  background: #2931E3;
+  color: #FFFFFF;
+  display: block;
+  margin: 1% 1.0% !important;
 }
 .circle-icon i {
   text-transform: capitalize;
@@ -50,4 +64,44 @@ ion-avatar span {
   margin-right:auto !important;;
   text-align: center;
   font-size: 1.4rem;
+}
+
+ion-card-header span{
+  text-align: center;
+  display: block;
+}
+ion-card-content h2, i{
+  color:#488AFF;
+}
+ion-card-content p{
+  margin: 0 0 2px 45px;
+}
+.job-detail-location {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color:#f4f4f4;
+}
+.job-detail-location span {
+  text-align: center;
+  color:#488AFF;
+}
+.card-detail p {
+  margin: 0 0 2px 45px;
+  word-wrap: 1.3px;
+}
+.card-ios p {
+  margin: 0 0 2px 45px !important;
+}
+.ticket-no {
+  padding: 5px 10px 5px 10px;
+  
+}
+
+.ticket-title, .ticket-desc{
+  line-height: 25px;
+  letter-spacing: 1.2px;
+  word-spacing: 1.3px;
+  font-weight: 500;
 }

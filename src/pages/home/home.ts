@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import { NgClass } from '@angular/common';
 import { MenuController, NavController, ViewController, NavParams } from 'ionic-angular';
 import { List } from 'ionic-angular';
 

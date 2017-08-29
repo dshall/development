@@ -17,47 +17,27 @@
   <div class="job-details-view">
   <ion-card>
     <ion-card-header>
-      TICKET NUMBER & DATE
-    </ion-card-header>
-    <ion-card-content>
-      {{ courierJob.TicketNo }}
-    </ion-card-content>
-    <ion-card-content>
-      {{ courierJob.JobDate }}
-    </ion-card-content>
-  </ion-card>
+      <div class="job-detail-location circle-icon">
+        <i class="la la-map-marker"></i>
 
-  <ion-card>
-    <ion-card-header>
-      PICK UP ADDRESS
+      </div> 
+      <span>Find Location</span> 
     </ion-card-header>
-    <ion-card-content>
-      {{courierJob.Paddress}}
+    <ion-card-content class="card-details">
+      <h2><i class="la la-ticket la-2x"></i>  &nbsp; Ticket No</h2>
+      <p>{{ courierJob.TicketNo }}</p>
     </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      DELIVERY ADDRESS
-    </ion-card-header>
     <ion-card-content>
-      {{courierJob.Daddress}}
+      <h2><i class="la la-history la-2x"></i> &nbsp; Job Date</h2>
+      <p>{{ courierJob.JobDate }}</p>
     </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      PICKUP INFO
-    </ion-card-header>
     <ion-card-content>
-      {{courierJob.PInfo}}
+      <h2><i class="la la-sticky-note la-2x"></i> &nbsp; Pickup Info</h2>
+      <p>{{ courierJob.PInfo }}</p>
     </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      DELIVERY INFO
-    </ion-card-header>
     <ion-card-content>
-       {{ courierJob.DInfo }}
+      <h2><i class="la la-sticky-note la-2x"></i> &nbsp; Delivery Info</h2>
+      <p>{{ courierJob.DInfo }}</p>
     </ion-card-content>
   </ion-card>
  </div>

@@ -17,6 +17,16 @@
     </ion-item>
   </ion-list>
   <ion-grid>
+    <!-- <ion-row>
+          <ion-col>
+              <div class="job-summary-heading">
+                  10
+                </div>
+                <div class="job-summary-heading">
+                    3
+                </div>
+          </ion-col>
+    </ion-row> -->
     <ion-row>
       <ion-col class="grid-items"  (click)="scanbarcode()">
         <div class="grid-content">
@@ -50,15 +60,20 @@
 
   <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
 
-  <ion-item class="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)">
+  <ion-item id="job-list-item" *ngFor="let outstndJob of courierJobs" ion-item detail-push (click)="jobDetails($event,  outstndJob)"
+  let="even = even" [ngClass]="{even: job-list-item-bgcolor}">
     <ion-avatar item-start>
       <!--<span item-start>5:00pm</span>-->
       <div class="circle-icon"><i class="la la-map-marker"></i></div>
     </ion-avatar>
-    <h2>{{outstndJob.TicketNo}} - {{outstndJob.Description}} </h2>
-    <h3><strong>DELIVER:</strong>{{outstndJob.Daddress}}</h3>
-    <h3><strong>PICKUP:</strong>{{outstndJob.Paddress}}</h3>
-    <p>{{outstndJob.Instructions}}</p>
+    <ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>
+    <div class="ticket-details">
+    <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
+    <div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>
+    <h3  class="ticket-title"><strong>PICKUP:</strong></h3>
+    <div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>
+    </div>
+
 <!--{{outstndJob.JobDate | date : 'shortTime'}}-->
   </ion-item>
   <!--<ion-item-group>-->

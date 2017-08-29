@@ -49,8 +49,7 @@ export class LoginPage implements OnInit {
 
 
   goToHome() {
-    this.navCtrl.push(HomePage, this.responseData.Id );
-    this.navCtrl.popToRoot;
+    this.navCtrl.setRoot(HomePage, this.responseData.Id);
   }
 
   ngOnInit() {
