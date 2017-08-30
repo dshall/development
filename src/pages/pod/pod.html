@@ -1,11 +1,35 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+  <ion-toolbar>
     <ion-title>
-      Pod
+      Sign POD
     </ion-title>
-  </ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
-<ion-content padding id="page3"></ion-content>
+<ion-content padding id="page13">
+<form [formGroup]="podForm" (ngSubmit)="savePOD()">
+<ion-item>
+  <ion-input   type="text" formControlName="signatureText" placeholder="Sign here"></ion-input>
+</ion-item>
+<ion-list>
+  <ion-item>
+    <ion-label>Status</ion-label>
+    <ion-select formControlName="statusText" interface="popover">
+      <ion-option   *ngFor="let status of statusOptions" >{{status}}</ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+  <button id="note-button" ion-button  color="positive" block type="submit">
+    Send POD
+  </button>
+  <button id="lpicture-note--button5" ion-button color="light" block>
+    Take Picture Note
+  </button>
+</form>
+<!-- -->

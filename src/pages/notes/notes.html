@@ -14,7 +14,7 @@
 <ion-content padding id="page13">
 <form [formGroup]="noteForm" (ngSubmit)="saveNote()">
     <ion-item>
-      <ion-textarea  formControlName="noteText" type="text" placeholder="Enter Information here"></ion-textarea>
+      <ion-textarea style="height: 40vh;" formControlName="noteText" type="text" col="520" placeholder="Enter Information here"></ion-textarea>
     </ion-item>
   <button id="note-button" ion-button  color="positive" block type="submit">
     Send

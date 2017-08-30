@@ -25,6 +25,7 @@ import {CourierService} from "../pages/shared/services/courier.service";
 import {ApiService} from "../pages/shared/services/api.service";
 import {JwtService} from "../pages/shared/services/jwt.service";
 // import {JwtService, CourierService, ApiService} from "../pages/shared/index";
+import { PodService } from '../pages/pod/pod.service';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import {JwtService} from "../pages/shared/services/jwt.service";
     CourierService,
     ApiService,
     JwtService,
+    PodService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -20,7 +20,7 @@ import {LoginPage} from "../pages/login/login";
 })
 export class MyApp implements OnInit{
   @ViewChild(Nav) navCtrl: Nav;
-    rootPage:any = LoginPage;
+    rootPage:any = HomePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

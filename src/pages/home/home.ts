@@ -1,15 +1,18 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgClass } from '@angular/common';
-import { MenuController,  ModalController , NavController, ViewController, NavParams } from 'ionic-angular';
+import { AlertController, MenuController,  ModalController , NavController, ViewController, NavParams, ItemSliding } from 'ionic-angular';
 import { List } from 'ionic-angular';
 
 import { SignPackagePage} from '../sign-package/sign-package';
 import {CourierService} from "../shared/services/courier.service";
 import {JobDetailsPage} from "../jobs/job-details/job-details";
 import {NotesPage} from "../notes/notes";
+import { PodPage } from '../pod/pod';
+import { PodService } from '../pod/pod.service';
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  // styleUrls: ['home.scss'],
 })
 export class HomePage implements OnInit{
   @ViewChild(List) list: List;
@@ -18,8 +21,13 @@ export class HomePage implements OnInit{
   courierJobs: any;
   labels:any;
   courierId:any;
+  isSelected = true;
+  selectedJobs = [];
+  selectedHighlight:any;
+  checked = false;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService
+  constructor(private alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, 
+    public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService, private podService: PodService
     , private navParams: NavParams) {
      this.courierId = this.navParams.data;
      console.log('Courier Job Selected By  ID:' + this.courierId);
@@ -43,7 +51,7 @@ export class HomePage implements OnInit{
   }
 
   listCourierJobs(){
-      this.courierService.listCourierJobs(this.courierId)
+      this.courierService.listCourierJobs('6412') //this.courierId
         .subscribe(
           jobs => {this.courierJobs = jobs;
            console.log("list All Courier Jobs By ID:" + this.courierJobs.TicketNo); },
@@ -95,12 +103,63 @@ ionViewDidLoad() {
     console.log("Display view when the user is about to enter the view");
 
   }
+  selectJob() {
+  
+      this.isSelected = false;
+      console.log("you clicked select \n" + "state: \n" + this.isSelected + " \n action: show");
 
-  // stopSliding() {
-  //   this.list.sliding(false);
-  // }
+  }
+    selectedItems($event,  outstndJob) {
+      this.checked = true;
+    console.log("item selected:" + this.checked + "\n outstndJob:" + outstndJob.TicketNo);
+    }
+  cancelSelect() {
+    this.isSelected = true;
+  console.log("you canceled selection!" + "state:" + this.isSelected + " \n action: hide");
+  }
+  signToSendPOD($event, outstndJob) {
+    // outstndJob.subscribe(
+    //   (data) => { this.selectedJobs = data.CourierId;
+    //   console.log("DATA:"  + JSON.stringify(this.selectedJobs))}
+    // )
+    // let prompt = this.alertCtrl.create({
+    //   title: 'Sign Here',
+    //   message: "Type Signature",
+    //   inputs: [
+    //     {
+    //       name: 'title',
+    //       placeholder: 'Type Signature'
+    //     },
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: 'Cancel',
+    //       handler: data => {
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
+    //     {
+    //       text: 'Send POD',
+    //       handler: data => {
+    //         console.log('Sending .. POD clicked');
+    //       }
+    //     }
+    //   ]
+    // });
+    // prompt.present();
+    let modal = this.modalCtrl.create(PodPage);
+    modal.present();
+    console.log("sending pod... selected" + JSON.stringify(this.selectedJobs));
+  }
+  setListItemClass() {
 
+        () => this.isSelected ? this.selectedHighlight = 'gray' : '';
 
+  }
+
+  transferJob(outstndJob) {
+    console.log("Transfer this job");
+  }
   jobDetails($event, courierJob){
     this.navCtrl.push(JobDetailsPage, courierJob);
   }
