@@ -14,8 +14,12 @@
 <ion-content padding id="page13">
 <form [formGroup]="podForm" (ngSubmit)="savePOD()">
 <ion-item>
-  <ion-input   type="text" formControlName="signatureText" placeholder="Sign here"></ion-input>
+    <ion-input   type="text" formControlName="signatureText" placeholder="Received By Name"></ion-input>
 </ion-item>
+<ion-item>
+  <ion-input   type="text" formControlName="signatureText" placeholder="Signature"></ion-input>
+</ion-item>
+
 <ion-list>
   <ion-item>
     <ion-label>Status</ion-label>
@@ -25,11 +29,44 @@
   </ion-item>
 </ion-list>
 
-  <button id="note-button" ion-button  color="positive" block type="submit">
+  <!-- <button id="note-button" ion-button  color="positive" block type="submit">
     Send POD
   </button>
   <button id="lpicture-note--button5" ion-button color="light" block>
     Take Picture Note
-  </button>
+  </button> -->
+  <ion-grid>
+    <ion-row>
+      <ion-col class="grid-items animated slideInLeft"  (click)="scanbarcode()">
+        <div class="grid-content">
+          <i class="icon la la-camera la-4x"></i>
+          <span>Take Picture</span>
+        </div>
+      </ion-col>
+      <ion-col class="grid-items  animated slideInRight" (click)="showNoteModal()">
+        <div class="grid-content">
+          <i class="icon la la-pencil-square la-4x"></i>
+          <span>Write Note</span>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="grid-items animated slideInLeft"  (click)="scanbarcode()">
+        <div class="grid-content">
+          <i class="icon la la-qrcode la-4x"></i>
+          <span>Scan Barcode</span>
+        </div>
+      </ion-col>
+      <ion-col class="grid-items  animated slideInRight"     style="background:#5894ff; color:#fff !important;" (click)="showNoteModal()">
+        <div class="grid-content">
+          <i class="icon la la-paper-plane la-4x" style="color: #fff !important;"></i>
+          <span style="color: #fff !important;">Send Pod</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 </form>
+
+
+</ion-content>
 <!-- -->

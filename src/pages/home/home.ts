@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgClass } from '@angular/common';
-import { AlertController, MenuController,  ModalController , NavController, ViewController, NavParams, ItemSliding } from 'ionic-angular';
+import { AlertController, MenuController,  ModalController , NavController, ViewController, NavParams, ItemSliding,  Platform  } from 'ionic-angular';
 import { List } from 'ionic-angular';
 
 import { SignPackagePage} from '../sign-package/sign-package';
@@ -25,10 +25,14 @@ export class HomePage implements OnInit{
   selectedJobs = [];
   selectedHighlight:any;
   checked = false;
+  onDemand:string = 'Pickup on Demand';
+  onRush: string = 'Pickup on Rush';
+  isAndroid: boolean = false;
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, 
     public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService, private podService: PodService
-    , private navParams: NavParams) {
+    , private navParams: NavParams, platform: Platform) {
+      this.isAndroid = platform.is('android');
      this.courierId = this.navParams.data;
      console.log('Courier Job Selected By  ID:' + this.courierId);
   }
@@ -117,36 +121,19 @@ ionViewDidLoad() {
     this.isSelected = true;
   console.log("you canceled selection!" + "state:" + this.isSelected + " \n action: hide");
   }
-  signToSendPOD($event, outstndJob) {
-    // outstndJob.subscribe(
+showItemDetailOnHold(outstndJob) {
+    //   outstndJob.subscribe(
     //   (data) => { this.selectedJobs = data.CourierId;
     //   console.log("DATA:"  + JSON.stringify(this.selectedJobs))}
     // )
-    // let prompt = this.alertCtrl.create({
-    //   title: 'Sign Here',
-    //   message: "Type Signature",
-    //   inputs: [
-    //     {
-    //       name: 'title',
-    //       placeholder: 'Type Signature'
-    //     },
-    //   ],
-    //   buttons: [
-    //     {
-    //       text: 'Cancel',
-    //       handler: data => {
-    //         console.log('Cancel clicked');
-    //       }
-    //     },
-    //     {
-    //       text: 'Send POD',
-    //       handler: data => {
-    //         console.log('Sending .. POD clicked');
-    //       }
-    //     }
-    //   ]
-    // });
-    // prompt.present();
+    let prompt = this.alertCtrl.create({
+      title: 'JOD DETAILS',
+      message: '<h2>' + outstndJob.Daddress + '</h2>',
+      buttons: ['OK']
+    });
+    prompt.present();
+}
+  signToSendPOD($event, outstndJob) {
     let modal = this.modalCtrl.create(PodPage);
     modal.present();
     console.log("sending pod... selected" + JSON.stringify(this.selectedJobs));

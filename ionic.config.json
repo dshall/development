@@ -1,6 +1,6 @@
 {
   "name": "dds-pod-app",
-  "app_id": "",
+  "app_id": "1015698e",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
