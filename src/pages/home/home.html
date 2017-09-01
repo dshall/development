@@ -1,98 +1,103 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Home
-    </ion-title>
+        <ion-title>
+            Home
+        </ion-title>
 
-    <ion-buttons end>
-      <button  ion-button small (click)="selectJob()" *ngIf="isSelected">Select</button>
-      <button  ion-button small (click)="cancelSelect()" *ngIf="!isSelected">Cancel</button>
-    </ion-buttons>
-  </ion-navbar>
- <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar> 
+        <ion-buttons end>
+            <button ion-button small (click)="selectJob()" *ngIf="isSelected">Select</button>
+            <button ion-button small (click)="cancelSelect()" *ngIf="!isSelected">Cancel</button>
+        </ion-buttons>
+    </ion-navbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 </ion-header>
 <ion-content>
- <ion-item>
-  <ion-segment [(ngModel)]= "onDemand" color="primary">
-    <ion-segment-button value="Pickup on Demand" > <!--(ionSelect)="selectedFriends()"-->
-      Pickup On Demand <ion-badge primary>20</ion-badge>
-    </ion-segment-button>
-    <ion-segment-button value="Pickup on Rush">
-      Pickup On Rush <ion-badge primary>2</ion-badge>
-    </ion-segment-button>
-  </ion-segment>
-</ion-item>
-
-  <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
-<div [ngSwitch]="onDemand">
-  <ion-list *ngSwitchCase="'Pickup on Demand'" >
-  <ion-item-sliding *ngFor="let outstndJob of courierJobs" #item>
-    <ion-item  (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
-      <ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>
-      <ion-checkbox  class="animated slideInLeft"  (click) = "selectedItems($event,  outstndJob)" *ngIf="!isSelected"></ion-checkbox>
-      <ion-avatar class="animated slideInLeft" item-start>
-      <!-- <span item-start>5:00pm</span> -->
-      <div class="circle-icon"><i class="la la-map-marker"></i></div>
-      </ion-avatar>
-        <h3  class="ticket-title"><strong>PICKUP:</strong></h3>
-        <div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>
-        <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
-        <div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>
+    <ion-item>
+        <ion-segment [(ngModel)]="onDemand" color="primary">
+            <ion-segment-button value="Pickup on Demand">
+                <!--(ionSelect)="selectedFriends()"-->
+                Pickup On Demand
+                <ion-badge primary>20</ion-badge>
+            </ion-segment-button>
+            <ion-segment-button value="Pickup on Rush">
+                Pickup On Rush
+                <ion-badge primary>2</ion-badge>
+            </ion-segment-button>
+        </ion-segment>
     </ion-item>
-    <ion-item-options side="left">
-      <button ion-button color="danger">Call Customer</button>
-    </ion-item-options>
 
-    <ion-item-options side="right">
-      <button ion-button   color="light" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
-      <button ion-button   color="danger" danger  (click)="signToSendPOD($event, outstndJob)">Decline</button>
-      <button ion-button   color="secondary" (click)="signToSendPOD($event, outstndJob)">Accept</button>
-      <button ion-button   color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>
-    </ion-item-options>
-  </ion-item-sliding>
+    <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
+    <div [ngSwitch]="onDemand">
+        <ion-list *ngSwitchCase="'Pickup on Demand'">
+            <ion-item-sliding *ngFor="let outstndJob of courierJobs; let i = index" #item>
+                <ion-item (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
+                    <ion-checkbox class="animated slideInLeft" checked="false" (ionChange)="selectedItems(outstndJob)" [ngModel]="checked" *ngIf="!isSelected"></ion-checkbox>
+                    <ion-chip>
+                        <h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2>
+                    </ion-chip>
+                    <ion-avatar class="animated slideInLeft" item-start>
+                        <!-- <span item-start>5:00pm</span> -->
+                        <div class="circle-icon"><i class="la la-map-marker"></i></div>
+                    </ion-avatar>
+                    <h3 class="ticket-title"><strong>PICKUP:</strong></h3>
+                    <div class="ticket-desc">
+                        <p>{{outstndJob.Paddress}}</p>
+                    </div>
+                    <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
+                    <div class="ticket-desc">
+                        <p>{{outstndJob.Daddress}}</p>
+                    </div>
+                </ion-item>
+                <ion-item-options side="left">
+                    <button ion-button color="danger">Call Customer</button>
+                </ion-item-options>
 
-  <button ion-button round class="animated slideInUp"
-  style="position: fixed; text-align:center; display:block; margin-right:auto; margin-left:auto; bottom:0; right:35%; left:35%" 
-  *ngIf="!isSelected"
-  (click)="signToSendPOD($event, outstndJob)" [(disabled)]="!checked">Send POD</button>
-  
-</ion-list>
+                <ion-item-options side="right">
+                    <button ion-button color="light" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
+                    <button ion-button color="danger" danger (click)="signToSendPOD($event, outstndJob)">Decline</button>
+                    <button ion-button color="secondary" (click)="signToSendPOD($event, outstndJob)">Accept</button>
+                    <button ion-button color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>
+                </ion-item-options>
+            </ion-item-sliding>
 
-  <ion-list *ngSwitchCase="'Pickup on Rush'" >
-  <ion-item-sliding *ngFor="let outstndJob of courierJobs" #item>
-    <ion-item  (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
-      <ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>
-      <ion-checkbox  class="animated slideInLeft"  (click) = "selectedItems($event,  outstndJob)" *ngIf="!isSelected"></ion-checkbox>
-      <ion-avatar class="animated slideInLeft" item-start>
-      <!-- <span item-start>5:00pm</span> -->
-      <div class="circle-icon"><i class="la la-map-marker"></i></div>
-      </ion-avatar>
-        <h3  class="ticket-title"><strong>PICKUP:</strong></h3>
-        <div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>
-        <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
-        <div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>
-    </ion-item>
-    <ion-item-options side="left">
-      <button ion-button color="danger">Call Customer</button>
-    </ion-item-options>
+            <button ion-button round class="animated slideInUp" style="position: fixed; text-align:center; display:block; margin-right:auto; margin-left:auto; bottom:0; right:35%; left:35%" *ngIf="!isSelected" (click)="signToSendPOD($event, outstndJob)" [(hidden)]="!checked">Send POD</button>
 
-    <ion-item-options side="right">
-      <button ion-button  color="secondary" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
-      <button ion-button   color="danger" danger  (click)="signToSendPOD($event, outstndJob)">Decline</button>
-      <button ion-button    (click)="signToSendPOD($event, outstndJob)">Accept</button>
-      <button ion-button   color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>
-    </ion-item-options>
-  </ion-item-sliding>
+        </ion-list>
 
-  <button ion-button round class="animated slideInUp"
-  style="position: fixed; text-align:center; display:block; margin-right:auto; margin-left:auto; bottom:0; right:35%; left:35%" 
-  *ngIf="!isSelected"
-  (click)="signToSendPOD($event, outstndJob)" [(disabled)]="!checked">Send POD</button>
-  
-</ion-list>
-</div>
+        <!--<ion-list *ngSwitchCase="'Pickup on Rush'" >-->
+        <!--<ion-item-sliding *ngFor="let outstndJob of courierJobs" #item>-->
+        <!--<ion-item  (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">-->
+        <!--<ion-chip><h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2></ion-chip>-->
+        <!--<ion-checkbox  class="animated slideInLeft"  (ionChange) = "selectedItems()" [(ngModel)] ="checked" *ngIf="!isSelected"></ion-checkbox>-->
+        <!--<ion-avatar class="animated slideInLeft" item-start>-->
+        <!--&lt;!&ndash; <span item-start>5:00pm</span> &ndash;&gt;-->
+        <!--<div class="circle-icon"><i class="la la-map-marker"></i></div>-->
+        <!--</ion-avatar>-->
+        <!--<h3  class="ticket-title"><strong>PICKUP:</strong></h3>-->
+        <!--<div class="ticket-desc"><p>{{outstndJob.Paddress}}</p></div>-->
+        <!--<h3 class="ticket-title"><strong>DELIVER:</strong></h3>-->
+        <!--<div class="ticket-desc"><p>{{outstndJob.Daddress}}</p></div>-->
+        <!--</ion-item>-->
+        <!--<ion-item-options side="left">-->
+        <!--<button ion-button color="danger">Call Customer</button>-->
+        <!--</ion-item-options>-->
+
+        <!--<ion-item-options side="right">-->
+        <!--<button ion-button  color="secondary" (click)="signToSendPOD($event, outstndJob)">Onboard</button>-->
+        <!--<button ion-button   color="danger" danger  (click)="signToSendPOD($event, outstndJob)">Decline</button>-->
+        <!--<button ion-button    (click)="signToSendPOD($event, outstndJob)">Accept</button>-->
+        <!--<button ion-button   color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>-->
+        <!--</ion-item-options>-->
+        <!--</ion-item-sliding>-->
+
+        <!--<button ion-button round class="animated slideInUp"-->
+        <!--style="position: fixed; text-align:center; display:block; margin-right:auto; margin-left:auto; bottom:0; right:35%; left:35%"-->
+
+        <!--(click)="signToSendPOD($event, outstndJob)" [(disabled)]="!checked">Send POD</button>-->
+
+        <!--</ion-list>-->
+    </div>
 </ion-content>
-

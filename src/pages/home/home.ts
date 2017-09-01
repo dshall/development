@@ -24,7 +24,9 @@ export class HomePage implements OnInit{
   isSelected = true;
   selectedJobs = [];
   selectedHighlight:any;
-  checked = false;
+  checked: boolean;
+  itemschecked = [];
+  state;
   onDemand:string = 'Pickup on Demand';
   onRush: string = 'Pickup on Rush';
   isAndroid: boolean = false;
@@ -37,12 +39,6 @@ export class HomePage implements OnInit{
      console.log('Courier Job Selected By  ID:' + this.courierId);
   }
 
-    // labels = [
-    //   {id:1, jobs: 'Courier Jobs'},
-    //   {id:2, jobdetails: 'Job Details'},
-    //   {id:3, settings: 'Settings'},
-    //   {id:4, returns: 'Returns'},
-    // ];
 
   scanbarcode(){
 
@@ -108,17 +104,30 @@ ionViewDidLoad() {
 
   }
   selectJob() {
-  
+
       this.isSelected = false;
       console.log("you clicked select \n" + "state: \n" + this.isSelected + " \n action: show");
 
   }
-    selectedItems($event,  outstndJob) {
-      this.checked = true;
-    console.log("item selected:" + this.checked + "\n outstndJob:" + outstndJob.TicketNo);
+  getItemsChecked(item) {
+    this.itemschecked = item;
+
+    console.log("Array of checked items:" + JSON.stringify(this.itemschecked));
+    return this.itemschecked;
+  }
+  selectedItems(outstndJob) {
+
+        this.itemschecked.splice(0, this.itemschecked.length)
+        this.itemschecked.push( outstndJob.TicketNo);
+        console.log("Array of checked items:" + JSON.stringify(this.itemschecked) );
+       //  console.log("item selected state:" + this.checked);
+      console.log("item selected state:" + this.checked + "\n outstndJob:" + outstndJob);
+
     }
   cancelSelect() {
     this.isSelected = true;
+    this.itemschecked = [];
+    console.log("ARRAY IS NOW EMPTY" + this.itemschecked)
   console.log("you canceled selection!" + "state:" + this.isSelected + " \n action: hide");
   }
 showItemDetailOnHold(outstndJob) {
@@ -133,10 +142,11 @@ showItemDetailOnHold(outstndJob) {
     });
     prompt.present();
 }
-  signToSendPOD($event, outstndJob) {
-    let modal = this.modalCtrl.create(PodPage);
+  signToSendPOD($event) {
+
+    let modal = this.modalCtrl.create($event, PodPage);
     modal.present();
-    console.log("sending pod... selected" + JSON.stringify(this.selectedJobs));
+    console.log("sending pod... selected" + JSON.stringify(this.itemschecked));
   }
   setListItemClass() {
 
