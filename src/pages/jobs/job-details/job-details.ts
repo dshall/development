@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
+import {  LoadingController, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the JobDetailsPage page.
@@ -15,14 +15,15 @@ import {  NavController, NavParams } from 'ionic-angular';
 })
 export class JobDetailsPage {
   courierJob: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-          this.courierJob = this.navParams.data;
-             console.log('Courier Job Details:' + JSON.stringify(this.courierJob) );
+  constructor(public navCtrl: NavController, public navParams: NavParams,private loadingController: LoadingController) {
+    this.courierJob = this.navParams.data;
+    console.log('Courier Job Details:' + JSON.stringify(this.courierJob) );
   }
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad JobDetailsPage');
+
+
   }
 
 }

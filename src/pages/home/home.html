@@ -12,9 +12,13 @@
             <button ion-button small (click)="cancelSelect()" *ngIf="!isSelected">Cancel</button>
         </ion-buttons>
     </ion-navbar>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="queryItems" (ionInput)="getItems()"></ion-searchbar>
 </ion-header>
 <ion-content>
+    <ion-refresher (ionRefresh)="refreshAll($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
     <ion-item>
         <ion-segment [(ngModel)]="onDemand" color="primary">
             <ion-segment-button value="Pickup on Demand">
@@ -33,7 +37,7 @@
     <div [ngSwitch]="onDemand">
         <ion-list *ngSwitchCase="'Pickup on Demand'">
             <ion-item-sliding *ngFor="let outstndJob of courierJobs; let i = index" #item>
-                <ion-item (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
+                <button ion-item (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
                     <ion-checkbox class="animated slideInLeft" checked="false" (ionChange)="selectedItems(outstndJob)" [ngModel]="checked" *ngIf="!isSelected"></ion-checkbox>
                     <ion-chip>
                         <h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2>
@@ -50,7 +54,7 @@
                     <div class="ticket-desc">
                         <p>{{outstndJob.Daddress}}</p>
                     </div>
-                </ion-item>
+                    </button>
                 <ion-item-options side="left">
                     <button ion-button color="danger">Call Customer</button>
                 </ion-item-options>

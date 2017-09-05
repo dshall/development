@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgClass } from '@angular/common';
-import { AlertController, MenuController,  ModalController , NavController, ViewController, NavParams, ItemSliding,  Platform  } from 'ionic-angular';
+import { LoadingController, AlertController, MenuController,  ModalController , NavController, ViewController, NavParams, ItemSliding,  Platform  } from 'ionic-angular';
 import { List } from 'ionic-angular';
+import * as _ from 'lodash';
 
 import { SignPackagePage} from '../sign-package/sign-package';
 import {CourierService} from "../shared/services/courier.service";
@@ -16,9 +17,9 @@ import { PodService } from '../pod/pod.service';
 })
 export class HomePage implements OnInit{
   @ViewChild(List) list: List;
-
-  items: string[];
+  queryText: string;
   courierJobs: any;
+  queryitems:any = [];
   labels:any;
   courierId:any;
   isSelected = true;
@@ -33,7 +34,7 @@ export class HomePage implements OnInit{
 
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, 
     public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService, private podService: PodService
-    , private navParams: NavParams, platform: Platform) {
+    , private navParams: NavParams, platform: Platform, private loadingController: LoadingController) {
       this.isAndroid = platform.is('android');
      this.courierId = this.navParams.data;
      console.log('Courier Job Selected By  ID:' + this.courierId);
@@ -58,51 +59,31 @@ export class HomePage implements OnInit{
           (error) => {console.log(error)});
      }
 
-  initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-    ];
-  }
 
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    this.initializeItems();
-
+  getItems() {
+     
     // set val to the value of the searchbar
-    let val = ev.target.value;
+    let queryTextToLower = this.queryText;
+    let filterJobs = [];
 
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+   _.forEach(
+     _.filter(this.courierJobs, data => { 
+      let items = data.TicketNo.toLowerCase().includes( this.queryText) 
+      if(items.length) {
+        filterJobs.push({TicketNo: data.TicketNo});
+        console.log("TicketNO:" +filterJobs);
+      }
+
       })
-    }
+    );
+
+  this.queryitems = filterJobs;
   }
+
  notifications() {
     console.log("List of notifications");
  }
- ionViewLoaded() {
 
- }
-ionViewDidLoad() {
-  this.listCourierJobs();
-  console.log("IonViewDidLoad Fired");
-}
-  ionViewDidEnter() {
-    //to disable menu, or
-    // this.listCourierJobs();
-    this.menuCtrl.getMenus();
-    console.log("Display view after the user entered the view");
-  }
-
-  ionViewWillEnter() {
-    // this.listCourierJobs();
-    this.viewCtrl.showBackButton(false);
-    this.menuCtrl.enable(true);
-    console.log("Display view when the user is about to enter the view");
-
-  }
   selectJob() {
 
       this.isSelected = false;
@@ -154,20 +135,60 @@ showItemDetailOnHold(outstndJob) {
 
   }
 
+  refreshAll(refresher) {
+    this.courierService.refreshAllJob()
+    .subscribe(() => {
+      refresher.complete();
+      this.ionViewLoaded();
+    })
+    console.log("refreshing all");
+  }
+
   transferJob(outstndJob) {
     console.log("Transfer this job");
   }
   jobDetails($event, courierJob){
-    this.navCtrl.push(JobDetailsPage, courierJob);
-  }
+    let loader = this.loadingController.create({
+      content: 'One Sec...',
+      dismissOnPageChange: true
+    });
+    loader.present();
+    this.courierService.listCourierJobs(courierJob.TicketNo)
+    .subscribe(data =>   this.navCtrl.push(JobDetailsPage, courierJob));
+    }
   showNoteModal() {
     let modal = this.modalCtrl.create(NotesPage);
     modal.present();
     console.log("Show Modal called~");
   }
+
+  ionViewLoaded() {
+    this.listCourierJobs();
+    console.log("IonViewLoaded Fired");
+     }
+
+  ionViewDidLoad() {
+
+      console.log("IonViewDidLoad Fired");
+    }
+
+  ionViewDidEnter() {
+        //to disable menu, or
+        // this.listCourierJobs();
+        this.menuCtrl.getMenus();
+        console.log("Display view after the user entered the view");
+      }
+    
+  ionViewWillEnter() {
+        // this.listCourierJobs();
+        this.viewCtrl.showBackButton(false);
+        this.menuCtrl.enable(true);
+        console.log("Display view when the user is about to enter the view");
+    
+      }
   ngOnInit() {
 
-    // this.listCourierJobs();
+    this.listCourierJobs();
     console.log("Execute When the application first load");
   }
 

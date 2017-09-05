@@ -16,6 +16,8 @@ export class CourierService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   private currentCourierSubject = new BehaviorSubject(Job);
   public currentCourier = this.currentCourierSubject.asObservable().distinctUntilChanged();
+  public currentJobs:any = {};
+  public courierJobData = {};
 
   constructor(public http: Http, public apiService: ApiService,  private jwtService: JwtService) {}
 
@@ -34,14 +36,36 @@ export class CourierService {
     return this.currentCourierSubject.value;
   }
 
- listCourierJobs(courierId) {
-    return this.apiService.getById(courierId)
-      .map(
-        (data:Response) => {
-          return data;
-      },
-        (error) => {this.errorMessage = error }
-      )
+//  listCourierJobs(courierId) {
+//     return this.apiService.getById(courierId)
+//       .map(
+//         (data:Response) => {
+//           return data;
+//       },
+//         (error) => {this.errorMessage = error }
+//       )
+//  }
+
+listCourierJobs(courierId, forceRefresh: boolean = false): Observable<any> {
+
+  if (!forceRefresh && this.courierJobData[courierId]) {
+     this.currentJobs = this.courierJobData[courierId];
+     console.log("No Need to make HTTP call to return the data" +  this.courierJobData[courierId]);
+     return Observable.of(this.currentJobs);
+  }
+  console.log("**about to make HTTp Call for new jobs");
+  return this.apiService.getById(courierId)
+    .map(
+      (response:Response) => {
+        this.courierJobData[courierId] = response;
+        this.currentJobs = this.courierJobData[courierId]; 
+        return this.currentJobs;
+    },
+      (error) => {this.errorMessage = error }
+    )
+}
+ refreshAllJob() {
+   return this.listCourierJobs(this.currentJobs.CourierId, true);
  }
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
