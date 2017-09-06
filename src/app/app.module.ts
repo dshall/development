@@ -26,6 +26,7 @@ import {ApiService} from "../pages/shared/services/api.service";
 import {JwtService} from "../pages/shared/services/jwt.service";
 // import {JwtService, CourierService, ApiService} from "../pages/shared/index";
 import { PodService } from '../pages/pod/pod.service';
+import { MapPage } from '../pages/map/map';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { PodService } from '../pages/pod/pod.service';
     ReturnPackagePage,
     SettingsPage,
     JobDetailsPage,
-    NotesPage
+    NotesPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ import { PodService } from '../pages/pod/pod.service';
     ReturnPackagePage,
     SettingsPage,
     JobDetailsPage,
-    NotesPage
+    NotesPage,
+    MapPage
   ],
   providers: [
     StatusBar,

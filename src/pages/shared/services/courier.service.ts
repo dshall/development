@@ -64,6 +64,7 @@ listCourierJobs(courierId, forceRefresh: boolean = false): Observable<any> {
       (error) => {this.errorMessage = error }
     )
 }
+
  refreshAllJob() {
    return this.listCourierJobs(this.currentJobs.CourierId, true);
  }
