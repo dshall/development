@@ -26,12 +26,12 @@
     <ion-list-header>OUTSTANDING JOBS TODAY</ion-list-header>
 
     <ion-list [virtualScroll]="courierJobs" [approxItemHeight]="'132px'">
-        <ion-item-sliding *virtualItem="let outstndJob">
+        <ion-item-sliding *virtualItem="let outstndJob; let i = index">
             <ion-item>
-                <ion-checkbox class="animated slideInLeft" checked="false" (ionChange)="selectedItems(outstndJob)">
+                <ion-checkbox class="animated slideInLeft" [(ngModel)]="toggleCheck" (ionChange)="selectedItems(outstndJob)">
                 </ion-checkbox>
 
-                <ion-avatar item-start class="animated slideInLeft" (click)="loadMap()" item-start>
+                <ion-avatar item-start class="animated slideInLeft" (click)="loadMap($event)" item-start>
                     <!-- <span item-start>5:00pm</span> -->
                     <div class="circle-icon"><i class="la la-map-marker"></i></div>
                 </ion-avatar>
@@ -54,11 +54,6 @@
 
             </ion-item>
             <!--right side of list item-->
-
-
-
-
-
             <ion-item-options side="left">
                 <button ion-button color="danger">Call Customer</button>
             </ion-item-options>
@@ -70,8 +65,9 @@
                 <button ion-button color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>
             </ion-item-options>
         </ion-item-sliding>
-        <button ion-button round class="animated slideInUp " style="position: fixed; text-align:center; display:block; margin-right:auto; margin-left:auto; bottom:0; right:35%; left:35% " *ngIf="!isSelected " (click)="signToSendPOD($event, outstndJob)
-            " [(hidden)]="!checked ">Send POD</button>
-
     </ion-list>
+    <ion-fab right bottom>
+        <button ion-fab [(hidden)]="!toggleCheck" color="primary" class="animated slideInUp" (click)="signToSendPOD($even) "><ion-icon name="arrow-dropright"></ion-icon></button>
+    </ion-fab>
+
 </ion-content>

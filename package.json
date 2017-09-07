@@ -1,7 +1,7 @@
 {
-    "name": "dds-pod-app",
+    "name": "DDS POD",
     "version": "0.0.1",
-    "author": "Ionic Framework",
+    "author": "DDS IT TEAM",
     "homepage": "http://ionicframework.com/",
     "private": true,
     "scripts": {
@@ -47,7 +47,7 @@
         "ionic": "3.9.2",
         "typescript": "2.3.4"
     },
-    "description": "An Ionic project",
+    "description": "Deluxe delivery system Proof of delivery ",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},

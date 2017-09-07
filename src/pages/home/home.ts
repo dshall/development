@@ -29,7 +29,7 @@ export class HomePage implements OnInit{
   isSelected = true;
   selectedJobs = [];
   selectedHighlight:any;
-  checked: boolean;
+  toggleCheck: boolean;
   itemschecked = [];
   state;
   onDemand:string = 'Pickup on Demand';
@@ -37,13 +37,16 @@ export class HomePage implements OnInit{
   isAndroid: boolean = false;
   searchControl: FormControl;
   searching: any = false;
-
+  jobId: string = '6412';
+  
   constructor(private alertCtrl: AlertController, public navCtrl: NavController, public modalCtrl: ModalController, 
     public viewCtrl: ViewController, public menuCtrl: MenuController, private courierService: CourierService, private podService: PodService
     , private navParams: NavParams, platform: Platform, private loadingController: LoadingController) {
       this.isAndroid = platform.is('android');
      this.courierId = this.navParams.data;
      this.searchControl = new FormControl();
+     this.toggleCheck = false;
+
   //    this.items = [
   //     {title: 'one'},
   //     {title: 'two'},
@@ -120,12 +123,12 @@ export class HomePage implements OnInit{
   }
 
   selectedItems(outstndJob) {
-
-        this.itemschecked.splice(0, this.itemschecked.length)
-        this.itemschecked.push( outstndJob.TicketNo);
-        console.log("Array of checked items:" + JSON.stringify(this.itemschecked) );
+  
+         this.itemschecked.splice(0, this.itemschecked.length)
+        this.itemschecked.push(outstndJob.TicketNo);
+        console.log("Array of checked items:" + this.itemschecked);
        //  console.log("item selected state:" + this.checked);
-      console.log("item selected state:" + this.checked + "\n outstndJob:" + outstndJob);
+      console.log("item selected state:" + this.toggleCheck+ "\n outstndJob:" + outstndJob);
 
     }
 
@@ -133,7 +136,7 @@ export class HomePage implements OnInit{
     this.isSelected = true;
     this.itemschecked = [];
     console.log("ARRAY IS NOW EMPTY" + this.itemschecked)
-  console.log("you canceled selection!" + "state:" + this.isSelected + " \n action: hide");
+  console.log("you canceled selection!" + "state:" + this.isSelected);
   }
 
 showItemDetailOnHold(outstndJob) {
@@ -183,8 +186,8 @@ showItemDetailOnHold(outstndJob) {
     .subscribe(data =>   this.navCtrl.push(JobDetailsPage, courierJob));
     }
   
-  loadMap() {
-     this.navCtrl.push(MapPage);
+  loadMap($event) {
+     this.navCtrl.push(MapPage, $event);
     }
 
   showNoteModal() {
