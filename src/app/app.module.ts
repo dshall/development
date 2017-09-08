@@ -27,7 +27,8 @@ import {JwtService} from "../pages/shared/services/jwt.service";
 // import {JwtService, CourierService, ApiService} from "../pages/shared/index";
 import { PodService } from '../pages/pod/pod.service';
 import { MapPage } from '../pages/map/map';
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   declarations: [
@@ -53,9 +54,10 @@ import { AgmCoreModule } from '@agm/core';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBylek84kkL6RNPaNaS_g0o37zKcE3TU6E'
-    }),
+
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBylek84kkL6RNPaNaS_g0o37zKcE3TU6E'
+    // }),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -27,31 +27,23 @@
 
     <ion-list [virtualScroll]="courierJobs" [approxItemHeight]="'132px'">
         <ion-item-sliding *virtualItem="let outstndJob; let i = index">
-            <ion-item>
-                <ion-checkbox class="animated slideInLeft" [(ngModel)]="toggleCheck" (ionChange)="selectedItems(outstndJob)">
-                </ion-checkbox>
-
-                <ion-avatar item-start class="animated slideInLeft" (click)="loadMap($event)" item-start>
-                    <!-- <span item-start>5:00pm</span> -->
-                    <div class="circle-icon"><i class="la la-map-marker"></i></div>
-                </ion-avatar>
-
-                <!--right side of list item-->
-                <div item-end (press)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
-                    <ion-chip>
-                        <h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2>
-                    </ion-chip>
-
-                    <h3 class="ticket-title"><strong>PICKUP:</strong></h3>
-                    <div class="ticket-desc">
-                        <p>{{outstndJob.Paddress}}</p>
-                    </div>
-                    <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
-                    <div class="ticket-desc">
-                        <p>{{outstndJob.Daddress}}</p>
-                    </div>
-                </div>
-
+            <ion-item>           
+                    <ion-checkbox class="animated slideInLeft" checked="false" [(ngModel)]="toggleCheck[i]" (ionChange)="selectedItems(outstndJob)"></ion-checkbox>
+                         <!--right side of list item-->
+                        <div item-end (click)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
+                            <ion-chip>
+                                <h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2>
+                            </ion-chip>
+        
+                            <h3 class="ticket-title"><strong>PICKUP:</strong></h3>
+                            <div class="ticket-desc">
+                                <p>{{outstndJob.Paddress}}</p>
+                            </div>
+                            <h3 class="ticket-title"><strong>DELIVER:</strong></h3>
+                            <div class="ticket-desc">
+                                <p>{{outstndJob.Daddress}}</p>
+                            </div>
+                        </div>
             </ion-item>
             <!--right side of list item-->
             <ion-item-options side="left">
@@ -62,12 +54,12 @@
                 <button ion-button color="light" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
                 <button ion-button color="danger" danger (click)="signToSendPOD($event, outstndJob)">Decline</button>
                 <button ion-button color="secondary" (click)="signToSendPOD($event, outstndJob)">Accept</button>
-                <button ion-button color="primary" (click)="signToSendPOD($event, outstndJob)">Send Pod</button>
+                <button ion-button color="primary" (click)="signToSendPOD()">Send Pod</button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
     <ion-fab right bottom>
-        <button ion-fab [(hidden)]="!toggleCheck" color="primary" class="animated slideInUp" (click)="signToSendPOD($even) "><ion-icon name="arrow-dropright"></ion-icon></button>
+        <button ion-fab [(hidden)]="isSelected" color="primary" class="animated slideInUp" (click)="signToSendPOD() "><ion-icon name="arrow-dropright"></ion-icon></button>
     </ion-fab>
 
 </ion-content>

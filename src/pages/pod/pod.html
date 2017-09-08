@@ -1,72 +1,77 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Sign POD
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
+    <ion-toolbar>
+        <ion-title>
+            Sign POD
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
         <span ion-text color="primary" showWhen="ios">Cancel</span>
         <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-toolbar>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content padding id="page13">
-<form [formGroup]="podForm" (ngSubmit)="savePOD()">
-<ion-item>
-    <ion-input   type="text" formControlName="signatureText" placeholder="Received By Name"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-input   type="text" formControlName="signatureText" placeholder="Signature"></ion-input>
-</ion-item>
+    <form [formGroup]="podForm" (ngSubmit)="savePOD()">
+        <ion-item>
+            <ion-textarea type="text" formControlName="ticketNo" placeholder="Tickets"></ion-textarea >
+       </ion-item>
+        <ion-item>
+            <ion-input type="text" formControlName="signatureName" placeholder="Received By Name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" formControlName="signatureScript" placeholder="Signature"></ion-input>
+        </ion-item>
 
-<ion-list>
-  <ion-item>
-    <ion-label>Status</ion-label>
-    <ion-select formControlName="statusText" interface="popover">
-      <ion-option   *ngFor="let status of statusOptions" >{{status}}</ion-option>
-    </ion-select>
-  </ion-item>
-</ion-list>
+        <ion-list>
+            <ion-item>
+                <ion-label>Status</ion-label>
+                <ion-select formControlName="statusText" interface="popover">
+                    <ion-option *ngFor="let status of statusOptions">{{status}}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+        
 
-  <!-- <button id="note-button" ion-button  color="positive" block type="submit">
+        <!-- <button id="note-button" ion-button  color="positive" block type="submit">
     Send POD
   </button>
   <button id="lpicture-note--button5" ion-button color="light" block>
     Take Picture Note
   </button> -->
-  <ion-grid>
-    <ion-row>
-      <ion-col class="grid-items animated slideInLeft"  (click)="scanbarcode()">
-        <div class="grid-content">
-          <i class="icon la la-camera la-4x"></i>
-          <span>Take Picture</span>
-        </div>
-      </ion-col>
-      <ion-col class="grid-items  animated slideInRight" (click)="showNoteModal()">
-        <div class="grid-content">
-          <i class="icon la la-pencil-square la-4x"></i>
-          <span>Write Note</span>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="grid-items animated slideInLeft"  (click)="scanbarcode()">
-        <div class="grid-content">
-          <i class="icon la la-qrcode la-4x"></i>
-          <span>Scan Barcode</span>
-        </div>
-      </ion-col>
-      <ion-col class="grid-items  animated slideInRight"     style="background:#5894ff; color:#fff !important;" (click)="showNoteModal()">
-        <div class="grid-content">
-          <i class="icon la la-paper-plane la-4x" style="color: #fff !important;"></i>
-          <span style="color: #fff !important;">Send Pod</span>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid> 
-</form>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="grid-items animated slideInLeft" (click)="scanbarcode()">
+                    <div class="grid-content">
+                        <i class="icon la la-camera la-4x"></i>
+                        <span>Take Picture</span>
+                    </div>
+                </ion-col>
+                <ion-col class="grid-items  animated slideInRight" (click)="showNoteModal()">
+                    <div class="grid-content">
+                        <i class="icon la la-pencil-square la-4x"></i>
+                        <span>Write Note</span>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <!-- <ion-col class="grid-items animated slideInLeft" (click)="scanbarcode()">
+                    <div class="grid-content">
+                        <i class="icon la la-qrcode la-4x"></i>
+                        <span>Scan Barcode</span>
+                    </div>
+                </ion-col> -->
+                <button type="submit" ion-button color="positive" block>Send</button>
+                <!-- <button class="grid-items  animated slideInRight" style="background:#5894ff; color:#fff !important;" >
+                    <div class="grid-content">
+                        <i class="icon la la-paper-plane la-4x" style="color: #fff !important;"></i>
+                        <span  style="color: #fff !important;" >Send Pod</span>
+                    </div>
+                </button> -->
+            </ion-row>
+        </ion-grid>
+    </form>
 
-
+    <p> {{podTickets}}</p>
 </ion-content>
 <!-- -->

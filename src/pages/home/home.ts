@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import * as _ from 'lodash';
 import 'rxjs/add/operator/debounceTime';
 
+
 import { SignPackagePage} from '../sign-package/sign-package';
 import {CourierService} from "../shared/services/courier.service";
 import {JobDetailsPage} from "../jobs/job-details/job-details";
@@ -26,11 +27,11 @@ export class HomePage implements OnInit{
   queryItems: any;
   labels:any;
   courierId:any;
-  isSelected = true;
+  isSelected = false;
   selectedJobs = [];
   selectedHighlight:any;
-  toggleCheck: boolean;
-  itemschecked = [];
+  toggleCheck: boolean[] = [];
+  itemschecked: string[] = [];
   state;
   onDemand:string = 'Pickup on Demand';
   onRush: string = 'Pickup on Rush';
@@ -45,8 +46,8 @@ export class HomePage implements OnInit{
       this.isAndroid = platform.is('android');
      this.courierId = this.navParams.data;
      this.searchControl = new FormControl();
-     this.toggleCheck = false;
-
+     this.toggleCheck = [];
+     this.toggleCheck  = new Array(this.itemschecked.length);
   //    this.items = [
   //     {title: 'one'},
   //     {title: 'two'},
@@ -122,13 +123,12 @@ export class HomePage implements OnInit{
     return this.itemschecked;
   }
 
-  selectedItems(outstndJob) {
+  selectedItems($event) {
   
-         this.itemschecked.splice(0, this.itemschecked.length)
-        this.itemschecked.push(outstndJob.TicketNo);
+        //  this.itemschecked.splice(0, this.itemschecked.length)
+        this.itemschecked.push($event.TicketNo);
         console.log("Array of checked items:" + this.itemschecked);
-       //  console.log("item selected state:" + this.checked);
-      console.log("item selected state:" + this.toggleCheck+ "\n outstndJob:" + outstndJob);
+
 
     }
 
@@ -152,11 +152,12 @@ showItemDetailOnHold(outstndJob) {
     prompt.present();
 }
 
-  signToSendPOD($event) {
-
-    let modal = this.modalCtrl.create($event, PodPage);
+  signToSendPOD() {
+    this.isSelected = true;
+     this.itemschecked.reverse();
+    let modal = this.modalCtrl.create(PodPage, {param: this.itemschecked, state:  this.itemschecked.reverse()});
     modal.present();
-    console.log("sending pod... selected" + JSON.stringify(this.itemschecked));
+
   }
   setListItemClass() {
 
@@ -177,6 +178,8 @@ showItemDetailOnHold(outstndJob) {
   }
 
   jobDetails($event, courierJob){
+    this.isSelected  = false;
+    this.itemschecked.reverse();
     let loader = this.loadingController.create({
       content: 'One Sec...',
       dismissOnPageChange: true

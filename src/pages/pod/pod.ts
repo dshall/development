@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController } from 'ionic-angular';
+import { ToastController, ViewController, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Toast } from '@ionic-native/toast';
+
 import { HomePage } from '../home/home';
+import { ApiService } from '../shared/services/api.service';
 @Component({
   selector: 'page-pod',
   templateUrl: 'pod.html'
@@ -9,7 +12,7 @@ import { HomePage } from '../home/home';
 export class PodPage {
   podForm: FormGroup;
   statusOptions: string[] = [ 
-       'Onboard',
+      'Onboard',
       'Successful',
       'Attempted Delivery',
       '2nd Attempt',
@@ -22,10 +25,17 @@ export class PodPage {
       'Received Pending',
       'Semi Completed'
       ];
-  constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController) {
+  
+  constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, private navparam: NavParams, 
+    private apiService: ApiService, private toastController: ToastController ) {
+        let podTickets: string[] = this.navparam.get('param');
+      
+        console.log(navparam.get('param'));
         this.podForm = this.fb.group(
            {
-            'signatureText': ['', Validators.required],
+            'ticketNo': [ `${podTickets}`, Validators.required],
+            'signatureName': ['Sign by', Validators.required],
+            'signatureScript': ['Successful', Validators.required],
             'statusText': ['Successful', Validators.required]
             }
        );
@@ -33,8 +43,23 @@ export class PodPage {
   }
 
   savePOD() {
-    this.viewCtrl.dismiss();
-    console.log("Note Save")
+   let  podValues = this.podForm.value;
+    this.apiService.sendPOD('deluxe-pod.json', podValues)
+    .subscribe(
+      (data) => { 
+        data.json; 
+       let toast =  this.toastController.create({
+           message: `POD successfully Completed`, 
+           duration: 3500,
+           position: 'bottom'
+        });
+        toast.present();
+        console.log("Data Successfully sent"); 
+        this.podForm.reset();
+        this.navparam.get('state')
+      },
+      (error) => {console.log("Error sending pod" +error); }
+    )
   }
 
   dismiss() {

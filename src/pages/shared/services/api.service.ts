@@ -11,6 +11,7 @@ import { JwtService } from '../services/jwt.service';
 @Injectable()
 export class ApiService {
   api_url = 'http://ws2.deluxedelivery.com/api/couriers/';
+  pod_api_url = 'https://deluxe-pod.firebaseio.com/';
   urlParam: string = '';
   // private currentUserSubject = new BehaviorSubject<Job>(new Job());
   constructor(private http: Http, private jwtService: JwtService) {}
@@ -28,7 +29,12 @@ export class ApiService {
     }
     return new Headers(headersConfig);
   }
-
+  
+  sendPOD(path: string, body: Object = {}): Observable<any> {
+    return this.http.post(`${this.pod_api_url}${path}/`,  JSON.stringify(body))
+    .catch(this.handleError)
+    .map( (response: Response) => response.json() );
+  }
   get(id: string, password: string): Observable<any> {
     return this.http.get(`${this.api_url}${this.urlParam='getlogin'}/` +  id  +'/' +  password )
       .map((response: Response) => response.json())
