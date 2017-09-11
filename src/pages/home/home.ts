@@ -32,6 +32,7 @@ export class HomePage implements OnInit{
   selectedHighlight:any;
   toggleCheck: boolean[] = [];
   itemschecked: string[] = [];
+  currentTicketNo: any;
   state;
   onDemand:string = 'Pickup on Demand';
   onRush: string = 'Pickup on Rush';
@@ -97,7 +98,7 @@ export class HomePage implements OnInit{
   }
 
   listCourierJobs(){
-      this.courierService.listCourierJobs('6412') //this.courierId
+      this.courierService.listCourierJobs(this.courierId) //
         .subscribe(
           jobs => {this.courierJobs = jobs;
            console.log("list All Courier Jobs By ID:" + jobs); },
@@ -151,14 +152,20 @@ showItemDetailOnHold(outstndJob) {
     });
     prompt.present();
 }
-
-  signToSendPOD() {
+  slideToSendPOD($event) {
     this.isSelected = true;
-     this.itemschecked.reverse();
-    let modal = this.modalCtrl.create(PodPage, {param: this.itemschecked, state:  this.itemschecked.reverse()});
+    this.currentTicketNo = $event.TicketNo;
+    this.itemschecked = this.currentTicketNo;
+    let modal = this.modalCtrl.create(PodPage, {param: this.itemschecked, state:  this.itemschecked });
     modal.present();
-
   }
+
+  actionToSendPOD() {
+    this.isSelected = true;
+    let modal = this.modalCtrl.create(PodPage, {param: this.itemschecked, state:  this.itemschecked });
+    modal.present();
+  }
+
   setListItemClass() {
 
         () => this.isSelected ? this.selectedHighlight = 'gray' : '';
@@ -177,9 +184,8 @@ showItemDetailOnHold(outstndJob) {
     console.log("Transfer this job");
   }
 
-  jobDetails($event, courierJob){
+  jobDetails(courierJob){
     this.isSelected  = false;
-    this.itemschecked.reverse();
     let loader = this.loadingController.create({
       content: 'One Sec...',
       dismissOnPageChange: true

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+// import { Camera, CameraOptions } from '@ionic-native/camera';
 import {NavController, ViewController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({

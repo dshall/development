@@ -27,10 +27,10 @@
 
     <ion-list [virtualScroll]="courierJobs" [approxItemHeight]="'132px'">
         <ion-item-sliding *virtualItem="let outstndJob; let i = index">
-            <ion-item>           
+            <button ion-item (press)="showItemDetailOnHold(outstndJob)">           
                     <ion-checkbox class="animated slideInLeft" checked="false" [(ngModel)]="toggleCheck[i]" (ionChange)="selectedItems(outstndJob)"></ion-checkbox>
                          <!--right side of list item-->
-                        <div item-end (click)="showItemDetailOnHold(outstndJob)" (click)="jobDetails($event,  outstndJob)">
+                        <div item-end  (click)="jobDetails(outstndJob)">
                             <ion-chip>
                                 <h2 class="ticket-no">#{{outstndJob.TicketNo}} &nbsp; &nbsp; - &nbsp; &nbsp;{{outstndJob.Description}}</h2>
                             </ion-chip>
@@ -44,22 +44,23 @@
                                 <p>{{outstndJob.Daddress}}</p>
                             </div>
                         </div>
-            </ion-item>
+             </button>
             <!--right side of list item-->
             <ion-item-options side="left">
                 <button ion-button color="danger">Call Customer</button>
             </ion-item-options>
 
             <ion-item-options side="right">
-                <button ion-button color="light" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
+                <!-- <button ion-button color="light" (click)="signToSendPOD($event, outstndJob)">Onboard</button>
                 <button ion-button color="danger" danger (click)="signToSendPOD($event, outstndJob)">Decline</button>
-                <button ion-button color="secondary" (click)="signToSendPOD($event, outstndJob)">Accept</button>
-                <button ion-button color="primary" (click)="signToSendPOD()">Send Pod</button>
+                <button ion-button color="secondary" (click)="signToSendPOD($event, outstndJob)">Accept</button> -->
+                <button ion-button color="primary" (click)="slideToSendPOD(outstndJob)">Send Pod</button>
             </ion-item-options>
+
         </ion-item-sliding>
+
     </ion-list>
     <ion-fab right bottom>
-        <button ion-fab [(hidden)]="isSelected" color="primary" class="animated slideInUp" (click)="signToSendPOD() "><ion-icon name="arrow-dropright"></ion-icon></button>
+            <button  ion-fab  color="primary" class="animated slideInUp" (click)="actionToSendPOD() "><ion-icon name="arrow-dropright"></ion-icon></button>
     </ion-fab>
-
 </ion-content>

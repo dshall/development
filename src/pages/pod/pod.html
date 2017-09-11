@@ -22,6 +22,9 @@
         <ion-item>
             <ion-input type="text" formControlName="signatureScript" placeholder="Signature"></ion-input>
         </ion-item>
+        <ion-item [hidden]="!isNoteDisabled">
+                <ion-textarea class = "animated fadeIn" type="text" formControlName="note" placeholder="Write a note.."></ion-textarea >
+        </ion-item>
 
         <ion-list>
             <ion-item>
@@ -41,13 +44,13 @@
   </button> -->
         <ion-grid>
             <ion-row>
-                <ion-col class="grid-items animated slideInLeft" (click)="scanbarcode()">
+                <ion-col class="grid-items animated slideInLeft">
                     <div class="grid-content">
                         <i class="icon la la-camera la-4x"></i>
                         <span>Take Picture</span>
                     </div>
                 </ion-col>
-                <ion-col class="grid-items  animated slideInRight" (click)="showNoteModal()">
+                <ion-col class="grid-items  animated slideInRight" (click)="writeNote()">
                     <div class="grid-content">
                         <i class="icon la la-pencil-square la-4x"></i>
                         <span>Write Note</span>
@@ -71,7 +74,5 @@
             </ion-row>
         </ion-grid>
     </form>
-
-    <p> {{podTickets}}</p>
 </ion-content>
 <!-- -->
