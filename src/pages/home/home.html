@@ -3,19 +3,21 @@
         <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-        <ion-title>
-            Home
+        <ion-title class="text-center">
+            JOBS
         </ion-title>
 
-        <ion-buttons end>
+        <!-- <ion-buttons end>
             <button ion-button small (click)="selectJob()" *ngIf="isSelected">Select</button>
             <button ion-button small (click)="cancelSelect()" *ngIf="!isSelected">Cancel</button>
-        </ion-buttons>
+        </ion-buttons> -->
     </ion-navbar>
+<ion-navbar>
     <ion-searchbar [(ngModel)]="queryText" [formControl]="searchControl" (ionInput)="setFilteredItems()"></ion-searchbar>
     <div *ngIf="searching" class="spinner-container">
         <ion-spinner></ion-spinner>
     </div>
+</ion-navbar>
 </ion-header>
 <ion-content>
     <ion-refresher (ionRefresh)="refreshAll($event)">

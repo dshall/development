@@ -17,7 +17,7 @@ import { MapPage } from '../map/map';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  // styleUrls: ['home.scss'],
+  styleUrls: ['/src/pages/home/home.scss'],
 })
 export class HomePage implements OnInit{
   @ViewChild(List) list: List;
@@ -98,7 +98,7 @@ export class HomePage implements OnInit{
   }
 
   listCourierJobs(){
-      this.courierService.listCourierJobs(this.courierId) //
+      this.courierService.listCourierJobs(this.jobId) //this.courierId
         .subscribe(
           jobs => {this.courierJobs = jobs;
            console.log("list All Courier Jobs By ID:" + jobs); },

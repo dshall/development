@@ -8,11 +8,13 @@ import * as SignaturePad from 'signature_pad';
 import { ApiService } from '../shared/services/api.service';
 @Component({
   selector: 'page-pod',
-  templateUrl: 'pod.html'
+  templateUrl: 'pod.html',
+  styleUrls: ['/src/pages/pod/pod.scss']
 })
 export class PodPage {
   podForm: FormGroup;
   isNoteDisabled = false;
+  isVissible = false;
   statusOptions: string[] = [ 
       'Onboard',
       'Successful',
@@ -28,15 +30,19 @@ export class PodPage {
       'Semi Completed'
       ];
       checkTicketState: string[] ;
-      podTickets: string[];
+      podTickets: any[];
+     tickets:string;
       currentTicketNo: string[];
 
   constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, private navparam: NavParams, 
     private apiService: ApiService, private toastController: ToastController ) {
          this.podTickets = this.navparam.get('param');
+
          this.checkTicketState = this.navparam.get('state');
         //  this.currentTicketNo = this.navparam.get('ticketNo');
         //  this.podTickets = this.currentTicketNo;
+        this.podTickets.join('\n');
+
         console.log(navparam.get('param'));
         this.podForm = this.fb.group(
            {
@@ -69,6 +75,12 @@ export class PodPage {
     )
   }
 
+  showMore() {
+    if(this.podTickets.length >= 2) {
+      this.podTickets.filter
+      this.isVissible = true;
+    }
+  }
   dismiss() {
   
     this.viewCtrl.dismiss();

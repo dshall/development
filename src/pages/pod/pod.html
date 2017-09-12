@@ -13,9 +13,14 @@
 </ion-header>
 <ion-content padding id="page13">
     <form [formGroup]="podForm" (ngSubmit)="savePOD()">
-        <ion-item>
-            <ion-textarea type="text" formControlName="ticketNo" placeholder="Tickets"></ion-textarea >
-       </ion-item>
+         <ion-scroll scrollY="true" class="theroot" style="height:150px">
+            <ion-item >
+                 <ng-container *ngFor="let ticket of podTickets; let i = index">
+                    <ion-chip  class="ticket_block" *ngIf="i < 2">{{ticket}}</ion-chip>
+                 </ng-container>   
+                 <ion-chip  class="ticket_block" [hidden]="isVissible" (click)="showMore()"><i class="la la-plus"></i></ion-chip>  
+            </ion-item>
+        </ion-scroll>
         <ion-item>
             <ion-input type="text" formControlName="signatureName" placeholder="Received By Name"></ion-input>
         </ion-item>

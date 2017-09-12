@@ -1,3 +1,12 @@
 page-pod {
-
+    .multi_lines_text { white-space: pre-line; }
+    .ticket_block {
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 16px;
+        border: 1px solid #00b3e0;
+        background: transparent;
+    }
 }
