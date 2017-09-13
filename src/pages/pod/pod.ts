@@ -14,7 +14,7 @@ import { ApiService } from '../shared/services/api.service';
 export class PodPage {
   podForm: FormGroup;
   isNoteDisabled = false;
-  isVissible = false;
+  isVissible:boolean;
   statusOptions: string[] = [ 
       'Onboard',
       'Successful',
@@ -30,9 +30,10 @@ export class PodPage {
       'Semi Completed'
       ];
       checkTicketState: string[] ;
-      podTickets: any[];
-     tickets:string;
+      podTickets: string[];
+      tickets:string;
       currentTicketNo: string[];
+      show: any = 2;
 
   constructor(private fb: FormBuilder, private viewCtrl: ViewController, public navCtrl: NavController, private navparam: NavParams, 
     private apiService: ApiService, private toastController: ToastController ) {
@@ -46,7 +47,7 @@ export class PodPage {
         console.log(navparam.get('param'));
         this.podForm = this.fb.group(
            {
-            'ticketNo':[ `${this.podTickets}` , Validators.required] ,
+            'ticketNo':[ `${this.podTickets.join('\n')}` , Validators.required] ,
             'signatureName': ['', Validators.required],
             'signatureScript': ['', Validators.required],
             'statusText': ['Successful', Validators.required],
@@ -75,12 +76,19 @@ export class PodPage {
     )
   }
 
-  showMore() {
-    if(this.podTickets.length >= 2) {
-      this.podTickets.filter
-      this.isVissible = true;
-    }
-  }
+  // showMore() {
+  //  if(this.podTickets.length > -1) {
+  //     this.show = this.podTickets.length;
+  //     this.isVissible = true;
+  //  }
+
+  // }
+  // showLess() {
+  //  if(this.podTickets.length) {
+  //      this.show = this.podTickets.slice(0, 2);
+  //      this.isVissible = false;
+  //  }
+//  }
   dismiss() {
   
     this.viewCtrl.dismiss();

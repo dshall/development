@@ -82,10 +82,10 @@ $palettes: (
     mainColors: ( // Also used for backgrounds.
         primary:   #0090d0, // Used for toolbars
         secondary:  #f7f7f7, // Used for various small elements
-        secondary-first:  #0091D2, // Used for gradient
+        secondary-first:  rgba(4, 83, 149, 1), // Used for gradient
         accent:   #ffffff, //Used for icon-search-bar, loaders-spinners, checkbox-item, icon, button, span, input-field-icons
         accent-first: #00c0e8,
-        accent-other: #00bee4, // Used for gradient
+        accent-other: rgb(12, 140, 248), // Used for gradient
     ),
 
     textColors: ( // Used for text colors in all screens

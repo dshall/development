@@ -29,6 +29,7 @@ export class HomePage implements OnInit{
   courierId:any;
   isSelected = false;
   selectedJobs = [];
+  isAvailable: boolean;
   selectedHighlight:any;
   toggleCheck: boolean[] = [];
   itemschecked: string[] = [];
